@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lan="en">
+  <%- include('partials/header.ejs') %>
+  <body>
+    <h1 class="text-center">My Favorite Comics</h1>
+    <div class="d-flex flex-column align-items-center justify-content-center">
+      <!-- add comic button -->
+      <a class="btn btn-primary" href="/addComic" role="button">Add Comic</a>
+
+      <!-- display all comic site names and links -->
+      <% for (i=0; i < comicSites.length; i++) { %>
+         <span><%=comicSites[i].comicSiteName%></span> 
+         <a href="<%=comicSites[i].comicSiteUrl%>"><%=comicSites[i].comicSiteUrl%></a>
+      <% } %>
+
+      <!-- random comic -->
+      <div id="displayRandomComic"></div>
+      <button class="btn btn-primary" id="buttonRandomComic">Display Random Comic</button>
+
+      </div>
+    </div>
+      <script src="/js/scripts.js"></script>
+  </body>
+ <%- include('partials/footer.ejs') %>
+
+</html>

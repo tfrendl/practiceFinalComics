@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lan="en">
+  <%- include('partials/header.ejs') %>
+  <body>
+    <h1> New Comic </h1><br>
+    <form>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" id="title">
+      </div>
+      <div class="mb-3">
+        <label for="url" class="form-label">Url: </label>
+        <input type="url" class="form-control" id="url">
+      </div>
+      <div class="mb-3">
+        <label for="publishDate" class="form-label">Publish Date:</label>
+        <input type="date" class="form-control" id="publishDate">
+      </div>
+      <div class="mb-3">
+        <label for="webSite" class="form-label">Web Site:</label>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Select Web Site</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit New Comic</button>
+    </form>
+  </body>
+ <%- include('partials/footer.ejs') %>
+
+</html>
