@@ -1,28 +1,7 @@
-<!DOCTYPE html>
-<html lan="en">
-  <%- include('partials/header.ejs') %>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Comics</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/addComic">Add Comic</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+<%- include('partials/header.ejs') %>
+<div id="pageContent" class="mt-xl-4">
     <div class="d-flex flex-column align-items-center justify-content-center">
-      <h1> New Comic </h1><br>
+      <h1 class="text-decoration-underline"> New Comic </h1><br>
       <form method="POST" action='/addComic'>
         <div class="mb-3">
           <label for="title" class="form-label">Title:</label>
@@ -55,6 +34,7 @@
           <%=message%>
         <% } %>
       </div>
+</div>
   </body>
  <%- include('partials/footer.ejs') %>
 
