@@ -26,26 +26,36 @@
         </div>
       </div>
     </nav>
-    <h1 class="text-center">My Favorite Comics</h1>
+
     <div class="d-flex flex-column align-items-center justify-content-center">
-      <!-- add comic button -->
-      <a class="btn btn-primary" href="/addComic" role="button">Add Comic</a>
-
-      <form method="POST" action='/displayComicsByBrand'>
-      <!-- display all comic site names and links -->
-      <% for (i=0; i < comicSites.length; i++) { %>
-          <br><button type="submit" class="btn btn-primary" name="comicSiteId" value="<%=comicSites[i].comicSiteId%>"><%=comicSites[i].comicSiteName%></button><br>
-         <a href="<%=comicSites[i].comicSiteUrl%>"><%=comicSites[i].comicSiteUrl%></a>
+     <% if (typeof comics != "undefined") { %>
+       <h1><%= comics[0].comicSiteName %></h1>
+       <% for (let i = 0; i < comics.length; i++) { %>
+         <%= comics[i].comicTitle %><br>
+         <img src="<%= comics[i].comicUrl %>" alt="Comic Image"><br>
+          <a href="#" class="showAddCommentModal" id="<%= comics[i].comicId %>">
+             Add Comments
+           </a>
       <% } %>
-        </form>
+    <% } %>
 
-      <!-- random comic -->
-      <div id="displayRandomComic"></div>
-      <button class="btn btn-primary" id="buttonRandomComic">Display Random Comic</button>
-
+       <!-- Add Comment Modal -->
+       <div id="addCommentModal" class="modal" tabindex="-1">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-body">
+               <h1>Adding Comments</h1>
+             </div>
+              <div class="modal-footer">
+               <button type="button" class="btn btn-primary">Submit Comment</button>
+           </div>
+         </div>
+       </div>
       </div>
-    </div>
-      <script src="/js/scripts.js"></script>
+
+
+
+      <script src="/js/comments.js"></script>
   </body>
  <%- include('partials/footer.ejs') %>
 

@@ -21,9 +21,43 @@ app.get('/index', async function (req, res) {
   res.render('index', {"comicSites": rows});
 });
 
-app.get('/addComic', (req, res) => {
-  res.render('addComic');
+app.get('/addComic', async function (req, res) {
+  let sql = `SELECT comicSiteName, comicSiteId
+              FROM fe_comic_sites
+              ORDER BY comicSiteName`;
+  let rows = await executeSQL(sql);
+  
+  res.render('addComic', {"websiteNames": rows});
 })
+
+// post form submissions
+app.post('/addComic', async function (req, res) {
+  let comicUrl = req.body.url;
+  let comicTitle = req.body.title;
+  let comicSiteId = req.body.comicSiteId;
+  let comicPublishDate = req.body.publishDate;
+  
+  let sql = `INSERT INTO fe_comics
+              (comicUrl, comicTitle, comicSiteId, comicDate)
+              VALUES
+              (?, ?, ?, ? )`;
+  let params = [comicUrl, comicTitle, comicSiteId, comicPublishDate];
+  let rows = await executeSQL(sql, params);
+  res.redirect('addComic');
+});
+
+app.post('/displayComicsByBrand', async function (req, res) {
+  let siteId = req.body.comicSiteId;
+
+  let sql = `SELECT * 
+              FROM fe_comics
+              NATURAL JOIN fe_comic_sites
+              WHERE comicSiteId = ?`;
+  let params = [siteId];
+  console.log(siteId);
+  let rows = await executeSQL(sql, params);
+  res.render('comicPage', {"comics":rows});
+});
 
 // local comic api
 app.get("/api/comic/", async function (req, res) {
@@ -34,7 +68,6 @@ app.get("/api/comic/", async function (req, res) {
   let rows = await executeSQL(sql);
   res.send(rows);
 });
-
 
 // functions
 async function executeSQL(sql, params) {

@@ -2,31 +2,65 @@
 <html lan="en">
   <%- include('partials/header.ejs') %>
   <body>
-    <h1> New Comic </h1><br>
-    <form>
-      <div class="mb-3">
-        <label for="title" class="form-label">Title:</label>
-        <input type="text" class="form-control" id="title">
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Comics</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/addComic">Add Comic</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/comicPage">Comics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Add Comment</a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="url" class="form-label">Url: </label>
-        <input type="url" class="form-control" id="url">
+    </nav>
+
+    <div class="d-flex flex-column align-items-center justify-content-center">
+      <h1> New Comic </h1><br>
+      <form method="POST" action='/addComic'>
+        <div class="mb-3">
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" class="form-control" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="url" class="form-label">Url: </label>
+          <input type="text" class="form-control" name="url" required>
+        </div>
+        <div class="mb-3">
+          <label for="publishDate" class="form-label">Publish Date:</label>
+          <input type="date" class="form-control" name="publishDate" required>
+        </div>
+        <div class="mb-3">
+          <label for="webSite" class="form-label">Web Site:</label>
+          <select name="comicSiteId" class="form-select" aria-label="Default select example">
+            <option selected>Select Web Site</option>
+            <% if(typeof websiteNames != "undefined") { %> 
+              <% for (let i = 0; i < websiteNames.length; i++) { %>
+                <option name="comicSiteId" value="<%=websiteNames[i].comicSiteId%>">
+                  <%=websiteNames[i].comicSiteName%>
+                </option>
+              <% } %>
+            <% } %>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit New Comic</button>
+      </form>
+        <% if(typeof message != "undefined") { %>
+          <%=message%>
+        <% } %>
       </div>
-      <div class="mb-3">
-        <label for="publishDate" class="form-label">Publish Date:</label>
-        <input type="date" class="form-control" id="publishDate">
-      </div>
-      <div class="mb-3">
-        <label for="webSite" class="form-label">Web Site:</label>
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Select Web Site</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit New Comic</button>
-    </form>
   </body>
  <%- include('partials/footer.ejs') %>
 
