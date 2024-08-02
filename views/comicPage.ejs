@@ -16,46 +16,44 @@
             <li class="nav-item">
               <a class="nav-link" href="/addComic">Add Comic</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/comicPage">Comics</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Add Comment</a>
-            </li>
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="d-flex flex-column align-items-center justify-content-center">
-     <% if (typeof comics != "undefined") { %>
        <h1><%= comics[0].comicSiteName %></h1>
        <% for (let i = 0; i < comics.length; i++) { %>
          <%= comics[i].comicTitle %><br>
          <img src="<%= comics[i].comicUrl %>" alt="Comic Image"><br>
-          <a href="#" class="showAddCommentModal" id="<%= comics[i].comicId %>">
+           <form method="POST" action="/showAddComment">
+          <button type="submit" id="addComments" name="comicId" value="<%=comics[i].comicId%>">
              Add Comments
-           </a>
+          </button>
+          </form>
+          <button type="submit" class="viewComments" name="comicId" id="<%=comics[i].comicId%>">
+              View Comments
+          </button>
       <% } %>
-    <% } %>
 
-       <!-- Add Comment Modal -->
-       <div id="addCommentModal" class="modal" tabindex="-1">
-         <div class="modal-dialog">
-           <div class="modal-content">
-             <div class="modal-body">
-               <h1>Adding Comments</h1>
-             </div>
+
+        <div class="modal" id="displayComments" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="allComments">
+              </div>
               <div class="modal-footer">
-               <button type="button" class="btn btn-primary">Submit Comment</button>
-           </div>
-         </div>
-       </div>
-      </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-
-
+    <% if (typeof comics != "undefined") { %> 
       <script src="/js/comments.js"></script>
+    <% } %>
   </body>
  <%- include('partials/footer.ejs') %>
 

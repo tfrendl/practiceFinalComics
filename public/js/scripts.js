@@ -1,6 +1,6 @@
 // event listeners
 document.getElementById("buttonRandomComic").addEventListener("click", displayRandomComic);
-let addCommentButton = document.getElementById("showAddCommentModal");
+//let addCommentButton = document.getElementById("showAddCommentModal");
 
 async function displayRandomComic(){
     // use local API created in index.js

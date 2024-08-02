@@ -1,19 +1,32 @@
+let viewCommentsButtons = document.querySelectorAll(".viewComments"); // creates an array with all of the elements in the view comments class
+
 // Event listeners
-let addCommentsLinks = document.querySelectorAll(".showAddCommentModal"); // creates an array with all of the elements with the showAddCommentModal class
-
-for(let i = 0; i < addCommentsLinks.length; i++) {
-  addCommentsLinks[i].addEventListener("click", addComments);
+for(let i = 0; i < viewCommentsButtons.length; i++) {
+    viewCommentsButtons[i].addEventListener("click", getComicComments);
 }
 
-// Functions
-async function addComments() {
- // alert(this.id) // "this" refers to the element that we are clicking on
+async function getComicComments() {
+    const myModal = new bootstrap.Modal(document.getElementById('displayComments'));
+    myModal.show();
 
-  // Show modal window
-  const myModal = new bootstrap.Modal(document.getElementById('addCommentModal'));
-  myModal.show()
+    console.log(`This is the comic id ${this.id}`);
+  
+    //show all comments for that specific comic
+    let url = `/api/comic/${this.id}`;
+    let response = await fetch(url);
+    let data = await response.json();
 
-  let comicInfo = document.querySelector(".modal-body");
-  comicInfo.innerHTML = this.id; // this.id is the comicId
-  console.log(this.id);
+    let modalBody = document.getElementById("allComments");
+    modalBody.innerHTML = "";
+
+   if (data.length > 0) {
+    for (let i = 0; i < data.length; i++) {
+      modalBody.innerHTML += `<h5>${data[i].comment}</h5>`;
+      modalBody.innerHTML += `- ${data[i].author}<br><br>`;
+      console.log(data[i].author);
+    }
+   } else {
+     modalBody.innerHTML = `<h4>No comments yet!</h4>`;
+   }
 }
+
